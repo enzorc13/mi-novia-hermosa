@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Luciana Martini | Editora & Creadora de Contenido</title>
+  <meta name="description" content="Portfolio de edición de video y creación de contenido." />
+
+  <!-- ============================================================
+       COLORES Y FUENTES: cambia estos valores para cambiar el estilo
+       ============================================================ -->
+  <style>
+    :root {
+      --color-fondo: #0f0f12;
+      --color-superficie: #18181d;
+      --color-texto: #f5f5f7;
+      --color-texto-suave: #a1a1aa;
+      --color-acento: #ff4d8d;   /* color principal de la marca */
+      --color-acento-2: #7c5cff; /* color secundario */
+      --radio: 18px;
+      --fuente: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--fuente);
+      background: var(--color-fondo);
+      color: var(--color-texto);
+      line-height: 1.6;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    .contenedor { width: min(1100px, 92%); margin: 0 auto; }
+
+    /* ---------- NAVEGACIÓN ---------- */
+    header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(15, 15, 18, 0.8);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .nav {
+      display: flex; justify-content: space-between; align-items: center;
+      height: 70px;
+    }
+    .logo { font-weight: 800; font-size: 1.2rem; letter-spacing: -0.5px; }
+    .logo span { color: var(--color-acento); }
+    .menu { display: flex; gap: 28px; list-style: none; }
+    .menu a { color: var(--color-texto-suave); transition: color .2s; font-size: .95rem; }
+    .menu a:hover { color: var(--color-texto); }
+
+    /* ---------- HERO ---------- */
+    .hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding-top: 70px;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255,77,141,.25), transparent 40%),
+        radial-gradient(circle at 80% 70%, rgba(124,92,255,.25), transparent 40%);
+    }
+    .hero h1 {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 800; line-height: 1.05; letter-spacing: -1.5px;
+      margin-bottom: 20px;
+    }
+    .hero h1 span {
+      background: linear-gradient(90deg, var(--color-acento), var(--color-acento-2));
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .hero p { color: var(--color-texto-suave); font-size: 1.15rem; max-width: 560px; margin-bottom: 32px; }
+    .botones { display: flex; gap: 14px; flex-wrap: wrap; }
+    .btn {
+      display: inline-block; padding: 14px 28px; border-radius: 999px;
+      font-weight: 600; font-size: .95rem; transition: transform .2s, opacity .2s;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-principal { background: var(--color-acento); color: #fff; }
+    .btn-secundario { border: 1px solid rgba(255,255,255,.2); color: var(--color-texto); }
+
+    /* ---------- SECCIONES GENERALES ---------- */
+    section { padding: 110px 0; }
+    .titulo-seccion { margin-bottom: 50px; }
+    .etiqueta {
+      color: var(--color-acento); font-size: .8rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px; display: block;
+    }
+    .titulo-seccion h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); letter-spacing: -1px; }
+
+    /* ---------- SOBRE MÍ ---------- */
+    .sobre-mi { display: grid; grid-template-columns: 1fr 1.2fr; gap: 60px; align-items: center; }
+    .foto {
+      width: 100%; aspect-ratio: 4/5; border-radius: var(--radio);
+      background: linear-gradient(135deg, var(--color-acento), var(--color-acento-2));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; color: rgba(255,255,255,.8);
+      /* Reemplaza el div por una imagen: <img src="foto.jpg" alt="Foto"> */
+    }
+    .sobre-mi p { color: var(--color-texto-suave); margin-bottom: 18px; }
+    .estadisticas { display: flex; gap: 40px; margin-top: 30px; }
+    .estadisticas strong { display: block; font-size: 2rem; color: var(--color-texto); }
+    .estadisticas small { color: var(--color-texto-suave); }
+
+    /* ---------- TRABAJOS ---------- */
+    .filtros { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 30px; }
+    .filtro {
+      background: var(--color-superficie); border: 1px solid rgba(255,255,255,.08);
+      color: var(--color-texto-suave); padding: 8px 18px; border-radius: 999px;
+      cursor: pointer; font-size: .9rem; font-family: inherit; transition: .2s;
+    }
+    .filtro.activo, .filtro:hover { background: var(--color-acento); color: #fff; border-color: transparent; }
+
+    .galeria { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; }
+    .proyecto {
+      background: var(--color-superficie); border-radius: var(--radio);
+      overflow: hidden; transition: transform .3s; cursor: pointer;
+      border: 1px solid rgba(255,255,255,.05);
+    }
+    .proyecto:hover { transform: translateY(-6px); }
+    .miniatura {
+      aspect-ratio: 16/10;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 1.1rem; color: #fff;
+      /* Reemplaza por: background-image: url('miniatura.jpg'); background-size: cover; */
+    }
+    .info { padding: 20px; }
+    .info .categoria { color: var(--color-acento); font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+    .info h3 { margin: 6px 0 4px; font-size: 1.1rem; }
+    .info p { color: var(--color-texto-suave); font-size: .9rem; }
+
+    /* ---------- SERVICIOS ---------- */
+    .servicios { background: var(--color-superficie); }
+    .grid-servicios { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; }
+    .servicio {
+      background: var(--color-fondo); padding: 34px; border-radius: var(--radio);
+      border: 1px solid rgba(255,255,255,.06);
+    }
+    .servicio .icono { font-size: 2rem; margin-bottom: 16px; }
+    .servicio h3 { margin-bottom: 10px; }
+    .servicio p { color: var(--color-texto-suave); font-size: .95rem; }
+
+    /* ---------- REDES ---------- */
+    .redes { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 10px; }
+    .red {
+      padding: 10px 20px; border-radius: 999px; background: var(--color-superficie);
+      border: 1px solid rgba(255,255,255,.08); font-size: .9rem; transition: .2s;
+    }
+    .red:hover { border-color: var(--color-acento); color: var(--color-acento); }
+
+    /* ---------- CONTACTO ---------- */
+    .contacto { text-align: center; }
+    .contacto p { color: var(--color-texto-suave); max-width: 520px; margin: 0 auto 30px; }
+    .contacto .email { font-size: clamp(1.2rem, 3vw, 1.8rem); font-weight: 700; color: var(--color-acento); }
+
+    footer {
+      border-top: 1px solid rgba(255,255,255,.06);
+      padding: 30px 0; text-align: center; color: var(--color-texto-suave); font-size: .85rem;
+    }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 800px) {
+      .sobre-mi { grid-template-columns: 1fr; gap: 40px; }
+      .menu { display: none; } /* Para móvil: luego puedes añadir un menú hamburguesa */
+      section { padding: 80px 0; }
+      .estadisticas { gap: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============ NAVEGACIÓN ============ -->
+  <header>
+    <nav class="contenedor nav">
+      <a href="#inicio" class="logo">Luciana Martini<span>.</span></a>
+      <ul class="menu">
+        <li><a href="#sobre-mi">Sobre mí</a></li>
+        <li><a href="#trabajos">Trabajos</a></li>
+        <li><a href="#servicios">Servicios</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- ============ HERO / INICIO ============ -->
+  <section class="hero" id="inicio">
+    <div class="contenedor">
+      <span class="etiqueta">Editora de video · Creadora de contenido</span>
+      <!-- CAMBIA EL NOMBRE AQUÍ -->
+      <h1>Hola, soy <span>Luciana Martini</span></h1>
+      <p>Transformo ideas en historias visuales que conectan. Edición de video, guion y contenido para redes sociales y marcas.</p>
+      <div class="botones">
+        <a href="#trabajos" class="btn btn-principal">Ver mis trabajos</a>
+        <a href="#contacto" class="btn btn-secundario">Trabajemos juntos</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SOBRE MÍ ============ -->
+  <section id="sobre-mi">
+    <div class="contenedor sobre-mi">
+      <div class="foto">Tu foto aquí</div>
+      <div>
+        <span class="etiqueta">Sobre mí</span>
+        <div class="titulo-seccion"><h2>Creo contenido que se siente auténtico</h2></div>
+        <!-- EDITA TU HISTORIA AQUÍ -->
+        <p>Soy editora de video y creadora de contenido con 1 año de experiencia. Me especializo en Reels, TikTok y campañas para marcas.</p>
+        <p>Mi objetivo es que cada video cuente una historia, mantenga la atención y refleje la personalidad de quien lo publica.</p>
+        <div class="estadisticas">
+          <div><strong>+50</strong><small>Proyectos</small></div>
+          <div><strong>+200</strong><small>Vistas totales</small></div>
+          
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TRABAJOS ============ -->
+  <section id="trabajos">
+    <div class="contenedor">
+      <div class="titulo-seccion">
+        <span class="etiqueta">Portfolio</span>
+        <h2>Trabajos destacados</h2>
+      </div>
+
+      <div class="filtros">
+        <button class="filtro activo" data-filtro="todos">Todos</button>
+        <button class="filtro" data-filtro="edicion">Edición</button>
+        <button class="filtro" data-filtro="reels">Reels</button>
+        <button class="filtro" data-filtro="youtube">YouTube</button>
+        <button class="filtro" data-filtro="marcas">Marcas</button>
+      </div>
+
+      <!-- AÑADE, QUITA O EDITA PROYECTOS AQUÍ.
+           data-categoria debe coincidir con data-filtro de los botones. -->
+      <div class="galeria" id="galeria">
+        <article class="proyecto" data-categoria="reels">
+          <div class="miniatura" style="background: linear-gradient(135deg,#ff4d8d,#7c5cff)">Reel · Moda</div>
+          <div class="info">
+            <span class="categoria">Reels</span>
+            <h3>Campaña de moda otoño</h3>
+            <p>Edición dinámica con transiciones y subtítulos.</p>
+          </div>
+        </article>
+
+        <article class="proyecto" data-categoria="youtube">
+          <div class="miniatura" style="background: linear-gradient(135deg,#f59e0b,#ef4444)">Video · YouTube</div>
+          <div class="info">
+            <span class="categoria">YouTube</span>
+            <h3>Vlog de viaje</h3>
+            <p>Storytelling, color grading y montaje narrativo.</p>
+          </div>
+        </article>
+
+        <article class="proyecto" data-categoria="marcas">
+          <div class="miniatura" style="background: linear-gradient(135deg,#10b981,#3b82f6)">Marca · Producto</div>
+          <div class="info">
+            <span class="categoria">Marcas</span>
+            <h3>Lanzamiento de producto</h3>
+            <p>Video publicitario para redes sociales.</p>
+          </div>
+        </article>
+
+        <article class="proyecto" data-categoria="edicion">
+          <div class="miniatura" style="background: linear-gradient(135deg,#6366f1,#ec4899)">Edición · Podcast</div>
+          <div class="info">
+            <span class="categoria">Edición</span>
+            <h3>Podcast en video</h3>
+            <p>Multicámara, cortes y animaciones de audio.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SERVICIOS ============ -->
+  <section class="servicios" id="servicios">
+    <div class="contenedor">
+      <div class="titulo-seccion">
+        <span class="etiqueta">Servicios</span>
+        <h2>Cómo puedo ayudarte</h2>
+      </div>
+      <!-- EDITA TUS SERVICIOS AQUÍ -->
+      <div class="grid-servicios">
+        <div class="servicio">
+          <div class="icono">🎬</div>
+          <h3>Edición de video</h3>
+          <p>Cortes, ritmo, color, sonido y motion graphics para cualquier formato.</p>
+        </div>
+        <div class="servicio">
+          <div class="icono">📱</div>
+          <h3>Reels y TikTok</h3>
+          <p>Videos cortos pensados para retener la atención desde el primer segundo.</p>
+        </div>
+        <div class="servicio">
+          <div class="icono">💡</div>
+          <h3>Creación de contenido</h3>
+          <p>Ideas, guiones y planificación de contenido para tu marca o personalidad.</p>
+        </div>
+        <div class="servicio">
+          <div class="icono">📈</div>
+          <h3>Estrategia de redes</h3>
+          <p>Calendario editorial y análisis para crecer de forma constante.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONTACTO ============ -->
+  <section class="contacto" id="contacto">
+    <div class="contenedor">
+      <span class="etiqueta">Contacto</span>
+      <div class="titulo-seccion"><h2>¿Hablamos de tu próximo proyecto?</h2></div>
+      <!-- CAMBIA TU CORREO Y REDES -->
+      <p>Escríbeme y te respondo lo antes posible.</p>
+      <a href="mailto:cmlucianamartini@gmail.com" class="email">cmlucianamartini@gmail.com</a>
+      <div class="redes" style="justify-content:center; margin-top:40px;">
+        <a href="#" class="red">Instagram</a>
+        <a href="#" class="red">TikTok</a>
+    
+        <a href="#" class="red">LinkedIn</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="contenedor">
+      <p>© 2026 Luciana Martini. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+  <!-- ============ JAVASCRIPT: FILTRO DE TRABAJOS ============ -->
+  <script>
+    const botones = document.querySelectorAll('.filtro');
+    const proyectos = document.querySelectorAll('.proyecto');
+
+    botones.forEach(boton => {
+      boton.addEventListener('click', () => {
+        botones.forEach(b => b.classList.remove('activo'));
+        boton.classList.add('activo');
+
+        const filtro = boton.dataset.filtro;
+        proyectos.forEach(p => {
+          const mostrar = filtro === 'todos' || p.dataset.categoria === filtro;
+          p.style.display = mostrar ? '' : 'none';
+        });
+      });
+    });
+  </script>
+</body>
+</html>
